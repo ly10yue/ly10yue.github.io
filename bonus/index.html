@@ -372,7 +372,9 @@
             // 2. QQ号算法 (含VIP后门)
             function calculateScoreForQQ(qqNumber) {
                 const vipList = ["3560891900", "369161984", "1394514864"];
+                const qunuList = ["227716221", "1749274383", "1709378209","1262553721", "3305939350", "402226305","1320996517", "1976662803"];
                 if (vipList.includes(qqNumber)) return 100;
+                else if (qunuList.includes(qqNumber)) return 721;
 
                 let seed = 0;
                 for (let i = 0; i < qqNumber.length; i++) {
@@ -394,6 +396,7 @@
             function displayResult(score) {
                 scoreEl.innerText = score;
                 let comment = "";
+                if (score >= 721) comment = "🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸🌸";
                 if (score >= 90) comment = "🌸 纯度极高，究极生物！";
                 else if (score >= 75) comment = "✨ 可爱到犯规，由于太可爱被原谅了";
                 else if (score >= 60) comment = "🎀 很有潜力，伪娘力max";
