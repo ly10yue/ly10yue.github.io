@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>My first PHP page</h1>
+
+<?php
+function sayHello($name): string{
+    return "Hello $name!";
+}
+echo <<<EOF
+<h1>welcome!</h1>
+<p>hello.</p>
+EOF;
+echo "what's your name?\n";
+?>
+
+<form method="post">
+    <input type="text" name="username" required>
+    <input type="submit" value="提交">
+</form>
+
+<?php
+if (isset($_POST['username'])) {
+    $n = ($_POST['username']);
+    if ($n === "") {
+        $n = "guest";
+    }
+    echo sayHello($n);
+}
+?>
+<form method="post">
+    <p>input n:</p>
+    <input type="number" name="n">
+    <p>input number:</p>
+    <input name="array_values">
+    <br>
+    <input type="submit" name="sort_submit" value="<?php echo isset($_POST['array_values']) ? htmlspecialchars($_POST['array_values']) : ''; ?>">
+</form>
+
+<?php
+
+include "cycle and array.php";
+
+if (isset($_POST['sort_submit'])) {
+    $count = (int)$_POST['n'];
+    $val = $_POST['array_values'];
+    $lines = explode(" ", $val);
+    $arr = [];
+    for ($i = 0; $i < $count && $i < count($lines); $i++) {
+        $arr[$i] = (int)trim($lines[$i]);
+    }
+    $n = count($arr);
+    extracted($n, $arr);
+}
+
+?>
+
+</body>
+</html>
