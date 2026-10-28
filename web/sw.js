@@ -1,0 +1,5 @@
+const CACHE='musound-0.12.0-web-1';
+const CORE=['./','index.html','style.css','app.mjs','engine.mjs','renderer.mjs','audio.mjs','storage.mjs','package.mjs','import-worker.mjs','vendor/fflate.mjs','vendor/ogg-vorbis-decoder.min.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png','assets/demo.json','assets/at-flow.json','assets/desultory-signals.ogg','assets/tap.wav','assets/hold.wav'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE))));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('musound-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==self.location.origin||!new URL(e.request.url).pathname.startsWith(new URL(self.registration.scope).pathname))return;e.respondWith(caches.open(CACHE).then(async c=>{let saved=await c.match(e.request);return saved||fetch(e.request);}));});

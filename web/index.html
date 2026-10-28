@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#10191b"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+ <meta name="description" content="MusounD / INTERVAL 0.12.0 音乐游戏网页试玩。支持 iPad、多点触控和本地谱面导入。">
+ <title>MusounD · 0.12.0 网页试玩</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <main id="library">
+  <header><a class="wordmark" href="../">MusounD<span> / INTERVAL</span></a><span class="version">0.12.0 · WEB PLAYTEST</span></header>
+  <section class="intro"><p class="eyebrow">FIND YOUR INTERVAL</p><h1>节奏，自有区间。</h1><p>跟随下落的音符，在开放区域内触碰。<br>Tap 一触，Hold 随线延续。</p><div class="chips"><span>iPad 触控</span><span>16:9 / 4:3</span><span>本地谱面</span></div></section>
+  <section class="library"><div class="section-title"><h2>选择乐曲 <small id="songCount"></small></h2><button id="importButton" class="secondary">＋ 导入谱面</button><input id="importFile" type="file" hidden></div>
+   <p class="hint">选择制谱器导出的 .interval 文件（含歌曲），或相同结构的 .zip。文件只在本机读取。</p>
+   <div class="song-layout"><div id="songs" class="songs" aria-label="歌曲列表"></div><aside class="details"><div id="songArt" class="song-art" aria-hidden="true"><svg viewBox="0 0 400 180"><path d="M45 0V38L130 80V180M200 0V105L290 145V180M355 0V40L300 75V110"/><path class="note" d="M103 79H157M173 47H227M273 110H327"/><path class="judge" d="M20 150H380"/></svg><span>INTERVAL / SIGNAL 01</span></div><p id="songBadge" class="eyebrow">BUILT-IN CHART</p><h3 id="songTitle">正在加载曲库…</h3><p id="songArtist"></p><p id="songMeta" class="meta"></p><p id="bestScore" class="meta"></p><div class="actions"><button id="playButton" class="primary" disabled>开始演奏 →</button><button id="autoButton" class="secondary" disabled>自动演示</button></div><button id="deleteButton" class="text-button" hidden>移除此导入谱面</button></aside></div>
+  </section>
+  <details class="settings"><summary>手感设置与玩法说明</summary><div class="settings-grid"><label>下落时间 <output id="approachValue"></output><input id="approach" type="range" min="0.6" max="4" step="0.1" value="2.2"><small>越小越快，最低 0.6 秒</small></label><label>音符延迟补偿 <output id="offsetValue"></output><input id="offset" type="range" min="-300" max="300" step="10" value="0"><small>正值让音符更晚到达判定线</small></label><label>打击音量 <output id="hitValue"></output><input id="hit" type="range" min="0" max="2" step="0.1" value="1"><small>0 关闭，可同时播放多声打击音</small></label><label class="checkbox"><input id="guide" type="checkbox" checked>显示开放区域填色</label></div><p>点击需要落在开放区域内，横向对准音符；高度不限。Hold 按住并跟随它与底部判定线的交点。电脑可以使用鼠标，或 D / F / J / K 四个键。</p><p>iPad 推荐横屏 Safari，可通过“分享 → 添加到主屏幕”打开。音频会在点击开始后启动；切后台或旋转屏幕会自动暂停。暂停后继续有 3 秒倒数，可提前重新按住 Hold。</p><p>支持 0.11.0 与 0.12.0 谱面（v3–v6），单包不超过 64 MB、歌曲不超过 10 分钟。浏览器可能清理本地存储，请保留原谱面文件。</p></details>
+  <footer><span>0.12.0 · 试玩版 / 音频版权归 technoplanet</span><nav><a href="https://github.com/ly10yue/MusounD_alpha/releases/tag/v0.12.0">Android 版</a><a href="https://github.com/ly10yue/mus_composer_alpha/releases/tag/v0.12.0">下载制谱器</a><a href="THIRD_PARTY.md">组件许可</a></nav></footer>
+ </main>
+ <section id="game" hidden aria-label="音乐游戏"><canvas id="canvas" aria-label="下落音符与判定区域，多点触控演奏"></canvas><button id="pauseButton" aria-label="暂停">Ⅱ</button><div id="countdown" hidden><strong id="countNumber">3</strong><span>准备进入区间 · 可重新按住 Hold</span></div></section>
+ <div id="overlay" class="overlay" hidden><section class="panel" role="dialog" aria-modal="true" aria-labelledby="overlayTitle"><p class="eyebrow" id="overlayEyebrow">SESSION PAUSED</p><h2 id="overlayTitle">节奏暂歇</h2><p id="overlayMessage"></p><div id="results" hidden></div><div class="panel-actions"><button id="resumeButton" class="primary">继续演奏 →</button><button id="retryButton" class="secondary">重新开始</button><button id="backButton" class="secondary">返回选歌</button></div></section></div>
+ <div id="loading" class="overlay" hidden><section class="panel" role="status"><span class="loader"></span><h2>准备乐曲</h2><p id="loadingMessage">正在读取…</p></section></div><p id="status" class="toast" role="status" aria-live="polite" hidden></p>
+ <noscript>需要启用 JavaScript 才能运行此音乐游戏。</noscript>
+ <script src="vendor/ogg-vorbis-decoder.min.js" charset="utf-8" defer></script><script type="module" src="app.mjs"></script>
+</body></html>
